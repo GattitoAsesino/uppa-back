@@ -106,6 +106,7 @@ def detectar_especie(image_bytes: bytes) -> dict:
     mejor = max(detecciones, key=lambda x: x["confianza"])
     return {
         "detectado":  True,
+        'id_especie':   mejor["clase_id"],  
         "especie":    mejor["especie"],
         "confianza":  mejor["confianza"],
         "cultivada":  mejor["cultivada"],
