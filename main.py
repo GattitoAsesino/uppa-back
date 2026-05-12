@@ -25,9 +25,11 @@ async def analizar(file: UploadFile = File(...)):
 
     return {
         # Especie
-        "detectado":  especie["detectado"],
-        "especie":    especie.get("especie"),
-        "confianza":  especie.get("confianza"),
+        "detectado":      especie["detectado"],
+        "especie":        especie.get("especie"),
+        "confianza":      especie.get("confianza"),
+        "id_especie":     especie.get("id_especie"),   # ← agregado
+        "cultivada":      especie.get("cultivada"),    # ← agregado
         # Salud
         "sano":            salud["sano"],
         "estado":          salud.get("estado"),
