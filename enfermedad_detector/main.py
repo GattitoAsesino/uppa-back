@@ -3,7 +3,7 @@ from ultralytics import YOLO
 import numpy as np
 import cv2
 
-WEIGHTS = Path("/home/gatito-asesino/code/dataset_enfermedades/dataset-enfermedades/uppa_v1_yolo11n.pt")
+WEIGHTS = Path("uppa_v1_yolo11n.pt")
 
 model_salud = YOLO(str(WEIGHTS))
 
@@ -27,7 +27,7 @@ def detectar_salud(image_bytes: bytes) -> dict:
             "sano":            sano,
             "estado":          cls_name,
             "confianza_salud": round(conf * 100, 1),
-            "mensaje_salud":   "Hongo sano :)" if sano else " Moho verde detectado :("
+            "mensaje_salud":   "Hongo sano " if sano else " Moho verde detectado :("
         }
 
     return {"sano": None, "estado": None, "confianza_salud": None, "mensaje_salud": "Sin resultado"}
