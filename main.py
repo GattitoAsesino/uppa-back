@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from especie_detector.main import detectar_especie
+from enfermedad_detector.main  import detectar_salud
 
 app = FastAPI(title="Úppa API")
 
@@ -18,5 +19,20 @@ def root():
 @app.post("/analizar")
 async def analizar(file: UploadFile = File(...)):
     image_bytes = await file.read()
-    resultado = detectar_especie(image_bytes)
-    return resultado
+
+    especie = detectar_especie(image_bytes)
+    salud   = detectar_salud(image_bytes)
+
+    return {
+        # Especie
+        "detectado":  especie["detectado"],
+        "especie":    especie.get("especie"),
+        "confianza":  especie.get("confianza"),
+        # Salud
+        "sano":            salud["sano"],
+        "estado":          salud.get("estado"),
+        "confianza_salud": salud.get("confianza_salud"),
+        # Mensajes
+        "mensaje_especie": especie.get("mensaje"),
+        "mensaje_salud":   salud.get("mensaje_salud")
+    }
